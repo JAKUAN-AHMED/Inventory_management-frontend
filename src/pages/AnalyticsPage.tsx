@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { TrendingUp, DollarSign, ShoppingCart, Package, Calendar, Download } from 'lucide-react';
+import { TrendingUp, DollarSign, ShoppingCart, Package, Download } from 'lucide-react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
@@ -7,8 +7,6 @@ import Select from '@/components/ui/Select';
 import {
   LineChart,
   Line,
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -37,8 +35,11 @@ const AnalyticsPage: React.FC = () => {
   const { data: revenueData = [] } = useGetRevenueDataQuery({ days: parseInt(timeRange) || 7 });
   const { data: orderData = [] } = useGetOrderDataQuery({ days: parseInt(timeRange) || 7 });
   const { data: productSummary = [] } = useGetProductSummaryQuery();
-  const { data: products = [] } = useGetProductsQuery({ pageSize: 1000 });
+  const { data: productsResponse } = useGetProductsQuery({ pageSize: 1000 });
   const { data: categories = [] } = useGetCategoriesQuery();
+
+  // Extract products array from paginated response
+  const products = productsResponse?.data || [];
 
   // Calculate metrics from real data
   const totalRevenue = useMemo(() => {
@@ -91,7 +92,7 @@ const AnalyticsPage: React.FC = () => {
         const product = products.find(p => p.id === summary.productId);
         return {
           id: summary.productId,
-          name: product?.name || 'Unknown Product',
+          name: product?.name || summary.name || 'Unknown Product',
           sales: summary.totalSales,
           revenue: summary.totalRevenue,
           rank: index + 1,

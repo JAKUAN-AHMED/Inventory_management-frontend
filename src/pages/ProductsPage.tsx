@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Search, Filter, MoreVertical, Edit2, Trash2, Eye, AlertTriangle } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, AlertTriangle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -13,9 +13,9 @@ import Badge from '@/components/ui/Badge';
 import Modal from '@/components/ui/Modal';
 import Table, { TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/Table';
 import EmptyState from '@/components/ui/EmptyState';
-import Skeleton, { SkeletonTable } from '@/components/ui/Skeleton';
+import SkeletonTable from '@/components/ui/Skeleton';
 import { formatCurrency, getStockStatus, getStockStatusColor } from '@/utils';
-import type { Product, Category, ProductFormData, ProductStatus } from '@/types';
+import type { Product, Category } from '@/types';
 import {
   useGetProductsQuery,
   useGetCategoriesQuery,
@@ -127,7 +127,6 @@ const ProductsPage: React.FC = () => {
   const [deleteProduct] = useDeleteProductMutation();
 
   const products = productsData?.data || [];
-  const totalProducts = productsData?.total || 0;
   const isLoading = isFetching;
 
   const {
@@ -135,7 +134,6 @@ const ProductsPage: React.FC = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
   } = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
     defaultValues: {

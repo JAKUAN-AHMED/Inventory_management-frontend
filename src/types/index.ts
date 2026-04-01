@@ -110,11 +110,14 @@ export interface DashboardMetrics {
 
 export interface ProductSummary {
   id: string;
+  productId: string;
   name: string;
   stockQuantity: number;
   minStockThreshold: number;
   status: ProductStatus;
   isLowStock: boolean;
+  totalSales: number;
+  totalRevenue: number;
 }
 
 // API Response types

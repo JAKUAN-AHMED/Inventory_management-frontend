@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Package, Mail, Lock, UserPlus, ArrowRight } from 'lucide-react';
+import { Package, Mail, Lock, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
 import { useSignupMutation } from '@/store/api';
 import { useAppDispatch } from '@/store/hooks';
@@ -46,7 +46,7 @@ export const SignupPage: React.FC = () => {
   const onSubmit = async (data: SignupFormData) => {
     try {
       const result = await signup(data).unwrap();
-      dispatch(setCredentials({ user: result.data.user, token: result.data.token }));
+      dispatch(setCredentials({ user: result.user, token: result.token }));
       toast.success('Account created successfully!');
       navigate('/dashboard');
     } catch (error: any) {

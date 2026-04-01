@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Filter, Eye, Package, User, Trash2, AlertCircle } from 'lucide-react';
+import { Plus, Search, Package, User, Trash2, AlertCircle } from 'lucide-react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -13,8 +13,8 @@ import Badge from '@/components/ui/Badge';
 import Modal from '@/components/ui/Modal';
 import Table, { TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/Table';
 import EmptyState from '@/components/ui/EmptyState';
-import { formatCurrency, formatRelativeTime, getOrderStatusColor } from '@/utils';
-import type { Order, Product, OrderStatus, OrderFormData } from '@/types';
+import { formatCurrency, formatRelativeTime } from '@/utils';
+import type { Order, Product, OrderStatus } from '@/types';
 import {
   useGetOrdersQuery,
   useGetProductsQuery,

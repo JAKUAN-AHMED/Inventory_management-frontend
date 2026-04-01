@@ -8,7 +8,7 @@ import Badge from '@/components/ui/Badge';
 import Table, { TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/Table';
 import EmptyState from '@/components/ui/EmptyState';
 import { formatCurrency, getPriorityColor } from '@/utils';
-import type { RestockQueue, RestockPriority } from '@/types';
+import type { RestockPriority } from '@/types';
 import {
   useGetRestockQueueQuery,
   useCompleteRestockMutation,
@@ -31,7 +31,7 @@ const RestockQueuePage: React.FC = () => {
     return (a.product?.stockQuantity || 0) - (b.product?.stockQuantity || 0);
   });
 
-  const handleRestock = async (id: string, productId: string, quantityNeeded: number) => {
+  const handleRestock = async (id: string, _productId: string, quantityNeeded: number) => {
     try {
       await completeRestock(id).unwrap();
       toast.success(`Product restocked with ${quantityNeeded} units`);

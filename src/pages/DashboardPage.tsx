@@ -2,7 +2,6 @@ import React from 'react';
 import {
   ShoppingCart,
   Package,
-  TrendingUp,
   DollarSign,
   ArrowUpRight,
   ArrowDownRight,
@@ -16,13 +15,11 @@ import DashboardLayout from '@/components/layout/DashboardLayout';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Skeleton from '@/components/ui/Skeleton';
-import { formatCurrency, formatRelativeTime, getOrderStatusColor } from '@/utils';
-import type { DashboardMetrics, ActivityLog, Order } from '@/types';
+import { formatCurrency, formatRelativeTime } from '@/utils';
+import type { ActivityLog, Order } from '@/types';
 import {
   LineChart,
   Line,
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -37,7 +34,6 @@ import {
   useGetActivityLogQuery,
   useGetRevenueDataQuery,
   useGetOrderDataQuery,
-  useGetProductSummaryQuery,
   useGetOrdersQuery,
 } from '@/store/api';
 

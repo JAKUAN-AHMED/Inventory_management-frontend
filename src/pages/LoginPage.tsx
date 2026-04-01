@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -36,7 +36,7 @@ export const LoginPage: React.FC = () => {
     try {
       const result = await login(data).unwrap();
       // Store credentials in Redux state (not localStorage)
-      dispatch(setCredentials({ user: result.data.user, token: result.data.token }));
+      dispatch(setCredentials({ user: result.user, token: result.token }));
       toast.success('Welcome back!');
       navigate('/dashboard');
     } catch (error: any) {
@@ -47,7 +47,7 @@ export const LoginPage: React.FC = () => {
   const handleDemoLogin = async () => {
     try {
       const result = await login({ email: 'demo@inventory.com', password: 'demo123' }).unwrap();
-      dispatch(setCredentials({ user: result.data.user, token: result.data.token }));
+      dispatch(setCredentials({ user: result.user, token: result.token }));
       toast.success('Logged in with demo account!');
       navigate('/dashboard');
     } catch (error: any) {

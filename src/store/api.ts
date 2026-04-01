@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type {
-  User,
   AuthResponse,
   LoginCredentials,
   SignupCredentials,
@@ -15,11 +14,10 @@ import type {
   ProductSummary,
   ActivityLog,
   RestockQueue,
-  RestockPriority,
   PaginatedResponse,
 } from '@/types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const API_BASE_URL = (import.meta as any).env.VITE_API_URL || '/api';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: API_BASE_URL,
@@ -107,7 +105,7 @@ export const api = createApi({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: 'Product', id },
         { type: 'Product', id: 'LIST' },
         'Dashboard',
@@ -119,7 +117,7 @@ export const api = createApi({
         url: `/products/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [
+      invalidatesTags: (_result, _error, id) => [
         { type: 'Product', id },
         { type: 'Product', id: 'LIST' },
         'Dashboard',
@@ -132,7 +130,7 @@ export const api = createApi({
         method: 'PATCH',
         body: { stockQuantity },
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: 'Product', id },
         { type: 'Product', id: 'LIST' },
         'Dashboard',
@@ -174,7 +172,7 @@ export const api = createApi({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: 'Category', id },
         { type: 'Category', id: 'LIST' },
       ],
@@ -185,7 +183,7 @@ export const api = createApi({
         url: `/categories/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'Category', id }],
+      invalidatesTags: (_result, _error, id) => [{ type: 'Category', id }],
     }),
 
     // ============ ORDERS ============
@@ -233,7 +231,7 @@ export const api = createApi({
         method: 'PATCH',
         body: { status },
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: 'Order', id },
         { type: 'Order', id: 'LIST' },
         'Dashboard',
@@ -246,7 +244,7 @@ export const api = createApi({
         method: 'PATCH',
         body: { reason },
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: 'Order', id },
         { type: 'Order', id: 'LIST' },
         'Product',
@@ -259,7 +257,7 @@ export const api = createApi({
         url: `/orders/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'Order', id }],
+      invalidatesTags: (_result, _error, id) => [{ type: 'Order', id }],
     }),
 
     // ============ DASHBOARD ============

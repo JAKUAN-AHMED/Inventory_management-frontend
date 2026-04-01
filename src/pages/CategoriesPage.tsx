@@ -40,7 +40,7 @@ const CategoriesPage: React.FC = () => {
   });
 
   // RTK Query hooks
-  const { data: categories = [], isLoading } = useGetCategoriesQuery();
+  const { data: categories = [] } = useGetCategoriesQuery();
   const { data: productsData } = useGetProductsQuery({ pageSize: 1000 });
   const [createCategory] = useCreateCategoryMutation();
   const [updateCategory] = useUpdateCategoryMutation();
