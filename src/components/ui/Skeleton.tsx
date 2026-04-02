@@ -23,18 +23,14 @@ export const Skeleton: React.FC<SkeletonProps> = ({
     rounded: 'rounded-lg',
   };
 
-  const animationStyles = {
-    pulse: 'animate-pulse',
-    wave: 'animate-pulse',
-    false: '',
-  };
+  const animationClass = animation ? 'animate-pulse' : '';
 
   return (
     <div
       className={cn(
         'bg-slate-200',
         variantStyles[variant],
-        animationStyles[animation],
+        animationClass,
         className
       )}
       style={{

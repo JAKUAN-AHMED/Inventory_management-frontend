@@ -14,13 +14,12 @@ import Modal from '@/components/ui/Modal';
 import Table, { TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/Table';
 import EmptyState from '@/components/ui/EmptyState';
 import { formatCurrency, formatRelativeTime } from '@/utils';
-import type { Order, Product, OrderStatus } from '@/types';
+import type { OrderStatus } from '@/types';
 import {
   useGetOrdersQuery,
   useGetProductsQuery,
   useCreateOrderMutation,
   useUpdateOrderStatusMutation,
-  useCancelOrderMutation,
 } from '@/store/api';
 
 const orderItemSchema = z.object({
@@ -35,123 +34,13 @@ const orderSchema = z.object({
 
 type OrderFormData = z.infer<typeof orderSchema>;
 
-const mockProducts: Product[] = [
-  {
-    id: '1',
-    name: 'iPhone 13 Pro',
-    categoryId: '1',
-    price: 999.99,
-    stockQuantity: 15,
-    minStockThreshold: 5,
-    status: 'active',
-    userId: 'user1',
-    createdAt: '',
-    updatedAt: '',
-  },
-  {
-    id: '2',
-    name: 'MacBook Pro 14"',
-    categoryId: '1',
-    price: 1999.99,
-    stockQuantity: 8,
-    minStockThreshold: 3,
-    status: 'active',
-    userId: 'user1',
-    createdAt: '',
-    updatedAt: '',
-  },
-  {
-    id: '3',
-    name: 'AirPods Pro',
-    categoryId: '1',
-    price: 249.99,
-    stockQuantity: 25,
-    minStockThreshold: 10,
-    status: 'active',
-    userId: 'user1',
-    createdAt: '',
-    updatedAt: '',
-  },
-  {
-    id: '4',
-    name: 'T-Shirt Basic',
-    categoryId: '2',
-    price: 29.99,
-    stockQuantity: 150,
-    minStockThreshold: 20,
-    status: 'active',
-    userId: 'user1',
-    createdAt: '',
-    updatedAt: '',
-  },
-  {
-    id: '5',
-    name: 'Wireless Mouse',
-    categoryId: '1',
-    price: 49.99,
-    stockQuantity: 0,
-    minStockThreshold: 10,
-    status: 'out_of_stock',
-    userId: 'user1',
-    createdAt: '',
-    updatedAt: '',
-  },
-];
-
-const mockOrders: Order[] = [
-  {
-    id: '1',
-    orderNumber: 'ORD-001023',
-    customerId: 'cust1',
-    customerName: 'John Doe',
-    userId: 'user1',
-    status: 'PENDING',
-    totalPrice: 1249.98,
-    items: [
-      { id: 'item1', productId: '1', product: mockProducts[0], quantity: 1, price: 999.99, subtotal: 999.99 },
-      { id: 'item2', productId: '3', product: mockProducts[2], quantity: 1, price: 249.99, subtotal: 249.99 },
-    ],
-    createdAt: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    orderNumber: 'ORD-001022',
-    customerId: 'cust2',
-    customerName: 'Jane Smith',
-    userId: 'user1',
-    status: 'SHIPPED',
-    totalPrice: 2049.98,
-    items: [
-      { id: 'item3', productId: '2', product: mockProducts[1], quantity: 1, price: 1999.99, subtotal: 1999.99 },
-      { id: 'item4', productId: '4', product: mockProducts[3], quantity: 1, price: 29.99, subtotal: 29.99 },
-      { id: 'item5', productId: '5', product: mockProducts[4], quantity: 1, price: 49.99, subtotal: 49.99 },
-    ],
-    createdAt: new Date(Date.now() - 86400000).toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    id: '3',
-    orderNumber: 'ORD-001021',
-    customerId: 'cust3',
-    customerName: 'Bob Wilson',
-    userId: 'user1',
-    status: 'DELIVERED',
-    totalPrice: 149.97,
-    items: [
-      { id: 'item6', productId: '4', product: mockProducts[3], quantity: 5, price: 29.99, subtotal: 149.95 },
-    ],
-    createdAt: new Date(Date.now() - 172800000).toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-];
 
 const OrdersPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
   const [stockWarnings, setStockWarnings] = useState<Record<string, string>>({});
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
   const [pageSize] = useState(50);
 
   // RTK Query hooks
@@ -159,11 +48,9 @@ const OrdersPage: React.FC = () => {
   const { data: productsData, isLoading: productsLoading } = useGetProductsQuery({ pageSize: 100 });
   const [createOrder] = useCreateOrderMutation();
   const [updateOrderStatus] = useUpdateOrderStatusMutation();
-  const [cancelOrder] = useCancelOrderMutation();
 
   const orders = ordersData?.data || [];
   const products = productsData?.data || [];
-  const isLoading = ordersLoading || productsLoading;
 
   const {
     register,

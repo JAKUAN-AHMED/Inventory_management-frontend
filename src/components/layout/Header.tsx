@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { cn } from '@/utils';
-import { Menu, Bell, Search, Moon, Sun, X } from 'lucide-react';
+import { Menu, Bell, Search, Moon, Sun } from 'lucide-react';
 import { useUIStore } from '@/stores/uiStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import Button from '@/components/ui/Button';
@@ -20,7 +20,7 @@ export const Header: React.FC<HeaderProps> = ({
   showSearch = false,
   className,
 }) => {
-  const { sidebarOpen, toggleSidebar, darkMode, toggleDarkMode } = useUIStore();
+  const { toggleSidebar, darkMode, toggleDarkMode } = useUIStore();
   const { unreadCount } = useNotificationStore();
   const [showNotifications, setShowNotifications] = useState(false);
 

@@ -163,7 +163,7 @@ export interface ProductFormData {
 }
 
 export interface OrderFormData {
-  customerId: string;
+  customerId?: string;
   customerName: string;
   items: OrderItemInput[];
 }

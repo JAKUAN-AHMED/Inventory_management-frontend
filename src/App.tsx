@@ -143,18 +143,6 @@ const App: React.FC = () => {
             borderRadius: '12px',
             boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
           },
-          success: {
-            iconTheme: {
-              primary: '#10b981',
-              secondary: '#fff',
-            },
-          },
-          error: {
-            iconTheme: {
-              primary: '#f43f5e',
-              secondary: '#fff',
-            },
-          },
         }}
       />
     </BrowserRouter>

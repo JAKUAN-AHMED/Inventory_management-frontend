@@ -1,9 +1,8 @@
 import React from 'react';
-import { Bell, Check, Trash2, AlertCircle, CheckCircle, AlertTriangle, XCircle } from 'lucide-react';
+import { Bell, Check, Trash2, CheckCircle, AlertTriangle, XCircle } from 'lucide-react';
 import { useNotificationStore, type Notification } from '@/stores/notificationStore';
 import { formatRelativeTime } from '@/utils';
 import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
 
 interface NotificationDropdownProps {
   isOpen: boolean;

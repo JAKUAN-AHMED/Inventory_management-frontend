@@ -13,9 +13,9 @@ import Badge from '@/components/ui/Badge';
 import Modal from '@/components/ui/Modal';
 import Table, { TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/Table';
 import EmptyState from '@/components/ui/EmptyState';
-import SkeletonTable from '@/components/ui/Skeleton';
+import { SkeletonTable } from '@/components/ui/Skeleton';
 import { formatCurrency, getStockStatus, getStockStatusColor } from '@/utils';
-import type { Product, Category } from '@/types';
+import type { Product } from '@/types';
 import {
   useGetProductsQuery,
   useGetCategoriesQuery,
@@ -35,80 +35,7 @@ const productSchema = z.object({
 
 type ProductFormData = z.infer<typeof productSchema>;
 
-const mockCategories: Category[] = [
-  { id: '1', name: 'Electronics', description: 'Electronic devices', userId: 'user1', createdAt: '', updatedAt: '' },
-  { id: '2', name: 'Clothing', description: 'Apparel and accessories', userId: 'user1', createdAt: '', updatedAt: '' },
-  { id: '3', name: 'Grocery', description: 'Food and beverages', userId: 'user1', createdAt: '', updatedAt: '' },
-  { id: '4', name: 'Home & Garden', description: 'Home improvement', userId: 'user1', createdAt: '', updatedAt: '' },
-];
 
-const mockProducts: Product[] = [
-  {
-    id: '1',
-    name: 'iPhone 13 Pro',
-    categoryId: '1',
-    category: mockCategories[0],
-    price: 999.99,
-    stockQuantity: 3,
-    minStockThreshold: 5,
-    status: 'active',
-    userId: 'user1',
-    createdAt: '',
-    updatedAt: '',
-  },
-  {
-    id: '2',
-    name: 'MacBook Pro 14"',
-    categoryId: '1',
-    category: mockCategories[0],
-    price: 1999.99,
-    stockQuantity: 15,
-    minStockThreshold: 5,
-    status: 'active',
-    userId: 'user1',
-    createdAt: '',
-    updatedAt: '',
-  },
-  {
-    id: '3',
-    name: 'AirPods Pro',
-    categoryId: '1',
-    category: mockCategories[0],
-    price: 249.99,
-    stockQuantity: 0,
-    minStockThreshold: 10,
-    status: 'out_of_stock',
-    userId: 'user1',
-    createdAt: '',
-    updatedAt: '',
-  },
-  {
-    id: '4',
-    name: 'T-Shirt Basic',
-    categoryId: '2',
-    category: mockCategories[1],
-    price: 29.99,
-    stockQuantity: 150,
-    minStockThreshold: 20,
-    status: 'active',
-    userId: 'user1',
-    createdAt: '',
-    updatedAt: '',
-  },
-  {
-    id: '5',
-    name: 'Wireless Mouse',
-    categoryId: '1',
-    category: mockCategories[0],
-    price: 49.99,
-    stockQuantity: 8,
-    minStockThreshold: 10,
-    status: 'active',
-    userId: 'user1',
-    createdAt: '',
-    updatedAt: '',
-  },
-];
 
 const ProductsPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -116,7 +43,7 @@ const ProductsPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
   const [pageSize] = useState(50);
 
   // RTK Query hooks

@@ -39,12 +39,6 @@ const NotificationsPage: React.FC = () => {
     removeNotification(id);
   };
 
-  const filteredNotifications = {
-    all: notifications,
-    unread: notifications.filter((n) => !n.read),
-    read: notifications.filter((n) => n.read),
-  };
-
   return (
     <DashboardLayout title="Notifications" subtitle="Manage your notifications">
       <div className="space-y-6">

@@ -184,7 +184,6 @@ const DashboardPage: React.FC = () => {
   const { data: activityLogs = [], isLoading: activityLoading } = useGetActivityLogQuery({ limit: 10 });
   const { data: revenueData = [] } = useGetRevenueDataQuery({ days: 7 });
   const { data: orderData = [] } = useGetOrderDataQuery({ days: 7 });
-  const { data: productSummary = [] } = useGetProductSummaryQuery();
   const { data: recentOrdersData } = useGetOrdersQuery({ page: 1, pageSize: 5 });
 
   const isLoading = metricsLoading || activityLoading;

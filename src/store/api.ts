@@ -87,7 +87,7 @@ export const api = createApi({
 
     getProduct: builder.query<Product, string>({
       query: (id) => `/products/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Product', id }],
+      providesTags: (_result, _error, id) => [{ type: 'Product', id }],
     }),
 
     createProduct: builder.mutation<Product, ProductFormData>({
@@ -209,7 +209,7 @@ export const api = createApi({
 
     getOrder: builder.query<Order, string>({
       query: (id) => `/orders/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Order', id }],
+      providesTags: (_result, _error, id) => [{ type: 'Order', id }],
     }),
 
     createOrder: builder.mutation<Order, OrderFormData>({

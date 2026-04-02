@@ -5,8 +5,6 @@ import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import Select from '@/components/ui/Select';
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
