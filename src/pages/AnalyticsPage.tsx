@@ -4,6 +4,7 @@ import DashboardLayout from '@/components/layout/DashboardLayout';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import Select from '@/components/ui/Select';
+import { exportToCSV, formatCurrencyForExport, formatDateForExport } from '@/utils/export';
 import {
   XAxis,
   YAxis,
@@ -24,6 +25,7 @@ import {
   useGetProductsQuery,
   useGetCategoriesQuery,
 } from '@/store/api';
+import { toast } from 'sonner';
 
 const AnalyticsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState('7d');
@@ -38,6 +40,20 @@ const AnalyticsPage: React.FC = () => {
 
   // Extract products array from paginated response
   const products = productsResponse?.data || [];
+
+  const handleExportReport = () => {
+    try {
+      // Export revenue data
+      const revenueDataForExport = revenueData.map(item => ({
+        date: formatDateForExport(item.date),
+        revenue: formatCurrencyForExport(item.revenue),
+      }));
+      exportToCSV(revenueDataForExport, 'revenue_report');
+      toast.success('Revenue report exported successfully');
+    } catch (error) {
+      toast.error('Failed to export report');
+    }
+  };
 
   // Calculate metrics from real data
   const totalRevenue = useMemo(() => {
@@ -114,7 +130,7 @@ const AnalyticsPage: React.FC = () => {
                 { value: '90d', label: 'Last 90 Days' },
               ]}
             />
-            <Button variant="secondary" leftIcon={<Download className="w-4 h-4" />}>
+            <Button variant="secondary" leftIcon={<Download className="w-4 h-4" />} onClick={handleExportReport}>
               Export Report
             </Button>
           </div>

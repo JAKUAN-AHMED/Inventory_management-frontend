@@ -15,6 +15,10 @@ import type {
   ActivityLog,
   RestockQueue,
   PaginatedResponse,
+  User,
+  UserWithCounts,
+  UserDetail,
+  UserRole,
 } from '@/types';
 
 const API_BASE_URL = (import.meta as any).env.VITE_API_URL || '/api';
@@ -62,6 +66,65 @@ export const api = createApi({
         body: credentials,
       }),
       invalidatesTags: ['User'],
+    }),
+
+    getCurrentUser: builder.query<User, void>({
+      query: () => '/auth/me',
+      transformResponse: (response: { success: boolean; data: User }) => {
+        return response.data;
+      },
+      providesTags: ['User'],
+    }),
+
+    // ============ USER MANAGEMENT ============
+    getUsers: builder.query<UserWithCounts[], void>({
+      query: () => '/users',
+      transformResponse: (response: { success: boolean; data: UserWithCounts[] }) => {
+        return response.data;
+      },
+      providesTags: ['User'],
+    }),
+
+    getUser: builder.query<UserDetail, string>({
+      query: (id) => `/users/${id}`,
+      transformResponse: (response: { success: boolean; data: UserDetail }) => {
+        return response.data;
+      },
+      providesTags: ['User'],
+    }),
+
+    updateUser: builder.mutation<User, { id: string; data: { email?: string; role?: UserRole } }>({
+      query: ({ id, data }) => ({
+        url: `/users/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+    deleteUser: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/users/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+    updateProfile: builder.mutation<User, { email?: string }>({
+      query: (data) => ({
+        url: '/users/profile/me',
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+    changePassword: builder.mutation<void, { currentPassword: string; newPassword: string }>({
+      query: (data) => ({
+        url: '/users/profile/change-password',
+        method: 'PUT',
+        body: data,
+      }),
     }),
 
     // ============ PRODUCTS ============
@@ -360,6 +423,14 @@ export const {
   // Auth
   useLoginMutation,
   useSignupMutation,
+  useGetCurrentUserQuery,
+  // User Management
+  useGetUsersQuery,
+  useGetUserQuery,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+  useUpdateProfileMutation,
+  useChangePasswordMutation,
   // Products
   useGetProductsQuery,
   useGetProductQuery,

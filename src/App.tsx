@@ -12,6 +12,9 @@ import RestockQueuePage from '@/pages/RestockQueuePage';
 import AnalyticsPage from '@/pages/AnalyticsPage';
 import NotificationsPage from '@/pages/NotificationsPage';
 import NotificationsDetailsPage from '@/pages/NotificationsDetailsPage';
+import ProfilePage from '@/pages/ProfilePage';
+import UsersPage from '@/pages/UsersPage';
+import SettingsPage from '@/pages/SettingsPage';
 
 // Protected Route Wrapper
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -118,6 +121,30 @@ const AppRoutes: React.FC = () => {
         element={
           <ProtectedRoute>
             <NotificationsDetailsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute>
+            <UsersPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <SettingsPage />
           </ProtectedRoute>
         }
       />

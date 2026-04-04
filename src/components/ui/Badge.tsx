@@ -3,7 +3,7 @@ import { cn } from '@/utils';
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'success' | 'warning' | 'danger' | 'slate' | 'blue';
+  variant?: 'primary' | 'success' | 'warning' | 'danger' | 'slate' | 'blue' | 'secondary';
   size?: 'sm' | 'md';
   className?: string;
   icon?: React.ReactNode;
@@ -23,6 +23,7 @@ export const Badge: React.FC<BadgeProps> = ({
     danger: 'bg-danger-100 text-danger-700',
     slate: 'bg-slate-100 text-slate-700',
     blue: 'bg-blue-100 text-blue-700',
+    secondary: 'bg-gray-100 text-gray-700',
   };
 
   const sizeStyles = {

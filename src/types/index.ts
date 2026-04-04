@@ -1,10 +1,38 @@
 // User types
+export type UserRole = 'ADMIN' | 'MANAGER' | 'USER';
+
 export interface User {
   id: string;
   email: string;
-  role: 'admin' | 'manager';
+  role: UserRole;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface UserWithCounts extends User {
+  _count: {
+    products: number;
+    orders: number;
+    categories: number;
+  };
+}
+
+export interface UserDetail extends User {
+  products: Array<{
+    id: string;
+    name: string;
+    stockQuantity: number;
+    price: number;
+    createdAt: string;
+  }>;
+  orders: Array<{
+    id: string;
+    orderNumber: string;
+    customerName: string;
+    totalPrice: number;
+    status: string;
+    createdAt: string;
+  }>;
 }
 
 // Category types

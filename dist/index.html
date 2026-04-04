@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Inventory Pro - Smart Inventory Management</title>
+    <script>
+      // Ensure light mode on initial load
+      if (typeof window !== 'undefined') {
+        // Remove any persisted dark mode from localStorage
+        try {
+          const uiStorage = localStorage.getItem('ui-storage');
+          if (uiStorage) {
+            const parsed = JSON.parse(uiStorage);
+            if (parsed.state && parsed.state.darkMode) {
+              parsed.state.darkMode = false;
+              localStorage.setItem('ui-storage', JSON.stringify(parsed));
+            }
+          }
+        } catch (e) {
+          console.error('Error clearing dark mode:', e);
+        }
+        // Ensure no dark class on html element
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-T5y9YINd.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BpRebEYt.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

@@ -44,8 +44,8 @@ const OrdersPage: React.FC = () => {
   const [pageSize] = useState(50);
 
   // RTK Query hooks
-  const { data: ordersData, isLoading: ordersLoading, refetch } = useGetOrdersQuery({ page, pageSize });
-  const { data: productsData, isLoading: productsLoading } = useGetProductsQuery({ pageSize: 100 });
+  const { data: ordersData, refetch } = useGetOrdersQuery({ page, pageSize });
+  const { data: productsData } = useGetProductsQuery({ pageSize: 100 });
   const [createOrder] = useCreateOrderMutation();
   const [updateOrderStatus] = useUpdateOrderStatusMutation();
 

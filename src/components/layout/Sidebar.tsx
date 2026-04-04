@@ -11,6 +11,7 @@ import {
   User,
   X,
   Bell,
+  Settings,
 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logout } from '@/store';
@@ -28,6 +29,11 @@ const navigation = [
   { name: 'Restock Queue', href: '/restock', icon: TrendingUp },
   { name: 'Analytics', href: '/analytics', icon: TrendingUp },
   { name: 'Notifications', href: '/notifications', icon: Bell },
+];
+
+const secondaryNavigation = [
+  { name: 'Profile', href: '/profile', icon: User },
+  { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
 export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
@@ -85,6 +91,23 @@ export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
           {/* Navigation */}
           <nav className="flex-1 px-3 py-6 space-y-1 overflow-y-auto scrollbar-thin">
             {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={closeSidebar}
+                className={cn(
+                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium',
+                  'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100',
+                  'transition-colors duration-150'
+                )}
+              >
+                <item.icon className="w-5 h-5 flex-shrink-0" />
+                <span>{item.name}</span>
+              </a>
+            ))}
+
+            {/* Secondary Navigation */}
+            {secondaryNavigation.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
